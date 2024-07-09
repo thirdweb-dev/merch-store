@@ -29,6 +29,7 @@ const formSchema = z.object({
   city: z.string(),
   state: z.string(),
   zipCode: z.string(),
+  method: z.string(),
 });
 
 interface MultiStepFormType {
@@ -49,14 +50,15 @@ export default function MultiStepForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       id: "",
-      size: "",
-      color: "",
+      size: "md",
+      color: "black",
       name: "",
       address1: "",
       address2: "",
       city: "",
       state: "",
       zipCode: "",
+      method: "domestic",
     },
   });
 
@@ -125,11 +127,7 @@ export default function MultiStepForm({
             <AddressForm control={form.control} action={goToNextStep} />
           )}
           {currentStep === 2 && (
-            <ShippingForm
-              control={form.control}
-              price={price}
-              action={goToNextStep}
-            />
+            <ShippingForm price={price} control={form.control} />
           )}
         </form>
       </Form>
