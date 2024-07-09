@@ -9,7 +9,7 @@ export default function Home() {
           frontImageUrl={"/shirt-front.jpeg"}
           backImageUrl={"/shirt-back.jpeg"}
           title={"thirdweb Men's Oversized Logo T-Shirt"}
-          price={"10"}
+          price={"0.01"}
         />
 
         <ProductCard
@@ -17,21 +17,21 @@ export default function Home() {
           frontImageUrl={"/shirt-front.jpeg"}
           backImageUrl={"/shirt-back.jpeg"}
           title={"thirdweb Women's Oversized Logo T-Shirt"}
-          price={"10"}
+          price={"0.01"}
         />
         <ProductCard
           id={"3"}
           frontImageUrl={"/shirt-front.jpeg"}
           backImageUrl={"/shirt-back.jpeg"}
           title={"thirdweb Women's Oversized Logo T-Shirt"}
-          price={"10"}
+          price={"0.01"}
         />
         <ProductCard
           id={"4"}
           frontImageUrl={"/shirt-front.jpeg"}
           backImageUrl={"/shirt-back.jpeg"}
           title={"thirdweb Women's Oversized Logo T-Shirt"}
-          price={"10"}
+          price={"0.01"}
         />
       </div>
     </main>

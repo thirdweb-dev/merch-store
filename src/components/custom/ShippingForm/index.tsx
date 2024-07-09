@@ -1,6 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Control, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -19,11 +19,13 @@ const formSchema = z.object({
   method: z.string(),
 });
 
-interface ProductFormType {
+interface ShippingFormType {
   price: string;
+  control: Control<any, any>;
+  action: () => void;
 }
 
-export default function ProductForm({ price }: ProductFormType) {
+export default function ShippingForm({ price }: ShippingFormType) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -31,7 +33,6 @@ export default function ProductForm({ price }: ProductFormType) {
     },
   });
 
-  // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
   }
@@ -47,20 +48,23 @@ export default function ProductForm({ price }: ProductFormType) {
           name="method"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="font-bold">Size</FormLabel>
-              <FormControl>
-                <RadioGroup className="flex space-x-2" defaultValue="free">
-                  <div className="flex items-center space-x-2">
+              <FormLabel className="font-bold">Shipping Method</FormLabel>
+              <FormControl className="border border-border rounded-md">
+                <RadioGroup
+                  className="flex flex-col space-y-0"
+                  defaultValue="free"
+                >
+                  <div className="flex items-center space-x-2 p-4 border-b border-border">
                     <RadioGroupItem value="free" id="free" />
                     <Label htmlFor="method">Free Shipping</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 p-4 border-b border-border">
                     <RadioGroupItem value="domestic" id="domestic" />
-                    <Label htmlFor="s">Domestic Grond</Label>
+                    <Label htmlFor="domestic">Domestic Ground</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 p-4">
                     <RadioGroupItem value="expedited" id="expedited" />
-                    <Label htmlFor="m">Expediated</Label>
+                    <Label htmlFor="expediated">Expedited</Label>
                   </div>
                 </RadioGroup>
               </FormControl>

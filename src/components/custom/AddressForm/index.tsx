@@ -18,7 +18,7 @@ interface ProductFormType {
 
 export default function AddressForm({ control, action }: ProductFormType) {
   return (
-    <>
+    <div className="flex flex-col space-y-4">
       <FormField
         control={control}
         name="name"
@@ -98,6 +98,6 @@ export default function AddressForm({ control, action }: ProductFormType) {
         )}
       />
       <Button onClick={action}>Continue to Shipping</Button>
-    </>
+    </div>
   );
 }
