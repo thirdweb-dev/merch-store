@@ -11,6 +11,12 @@ import AddressForm from "../AddressForm";
 import ShippingForm from "../ShippingForm";
 
 import Image from "next/image";
+import { getContract, sendTransaction } from "thirdweb";
+import { THIRDWEB_CLIENT } from "@/lib/thirdweb";
+import { polygon } from "thirdweb/chains";
+import { transfer, transferFrom } from "thirdweb/extensions/erc20";
+import { useActiveAccount } from "thirdweb/react";
+import { submitPurchase } from "@/lib/submitPurchase";
 
 const steps = [
   "Product Details",
@@ -45,6 +51,7 @@ export default function MultiStepForm({
   backImageUrl,
   price,
 }: MultiStepFormType) {
+  const account = useActiveAccount();
   const [currentStep, setCurrentStep] = useState(0);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -62,10 +69,37 @@ export default function MultiStepForm({
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+
+    if (!account) {
+      alert("Please login with your wallet");
+      return;
+    }
+
+    const contract = getContract({
+      client: THIRDWEB_CLIENT,
+      chain: polygon,
+      address: "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
+    });
+
+    const transaction = transfer({
+      contract,
+      to: "0xE443E285925CBF30a3AF2eAD6b2f3947764fFEB6",
+      amount: parseFloat(price),
+    });
+
+    const result = await sendTransaction({ transaction, account });
+
+    await submitPurchase({
+      chainId: polygon.id,
+      transactionHash: result.transactionHash,
+      purchaseData: {
+        ...values,
+      },
+    });
   }
 
   const goToNextStep = () => {

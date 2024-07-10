@@ -10,7 +10,7 @@ interface SubmitPurchaseParams {
 // example purchase data
 /*
  const data = {
-    chainId: purchaseData,
+    chainId: 137,
     transactionHash:
       "0xfcde0eaad195bfddec848bf93682828db3d92f3fbba75116969b2000996b66c7",
     purchaseData: {
