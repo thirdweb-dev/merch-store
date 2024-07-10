@@ -14,9 +14,11 @@ import Image from "next/image";
 import { getContract, sendTransaction } from "thirdweb";
 import { THIRDWEB_CLIENT } from "@/lib/thirdweb";
 import { polygon } from "thirdweb/chains";
-import { transfer, transferFrom } from "thirdweb/extensions/erc20";
+import { transfer } from "thirdweb/extensions/erc20";
 import { useActiveAccount } from "thirdweb/react";
 import { submitPurchase } from "@/lib/submitPurchase";
+import { orderData } from "@/lib/orderData";
+import { generateOrderId, getProductUid } from "@/lib/gelato";
 
 const steps = [
   "Product Details",
@@ -26,53 +28,60 @@ const steps = [
 ];
 
 const formSchema = z.object({
-  id: z.string(),
   size: z.string(),
   color: z.string(),
+  email: z.string(),
   name: z.string(),
   address1: z.string(),
   address2: z.string(),
   city: z.string(),
+  country: z.string(),
   state: z.string(),
   zipCode: z.string(),
   method: z.string(),
 });
 
 interface MultiStepFormType {
+  id: string;
   title: string;
   frontImageUrl: string;
   backImageUrl?: string;
   price: string;
+  colors: any;
+  variants: any[];
 }
 
 export default function MultiStepForm({
+  id,
   title,
   frontImageUrl,
   backImageUrl,
   price,
+  colors,
+  variants,
 }: MultiStepFormType) {
   const account = useActiveAccount();
   const [currentStep, setCurrentStep] = useState(0);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      id: "",
-      size: "md",
-      color: "black",
+      size: "M",
+      color: "shadow",
+      email: "",
       name: "",
       address1: "",
       address2: "",
       city: "",
+      country: "",
       state: "",
       zipCode: "",
-      method: "domestic",
+      method: "normal",
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
 
     if (!account) {
       alert("Please login with your wallet");
@@ -93,21 +102,47 @@ export default function MultiStepForm({
 
     const result = await sendTransaction({ transaction, account });
 
+    orderData.orderReferenceId = generateOrderId(account.address);
+    orderData.customerReferenceId = account.address;
+    orderData.shipmentMethodUid = values.method;
+    orderData.items = [
+      {
+        itemReferenceId: id,
+        productUid: getProductUid(variants, values.color, values.size),
+        files: [
+          {
+            type: "default",
+            url: frontImageUrl,
+          },
+        ],
+        quantity: 1,
+      },
+    ];
+
+    orderData.shippingAddress = {
+      firstName: values.name.split(/ (.*)/)[0],
+      lastName: values.name.split(/ (.*)/)[1],
+      addressLine1: values.address1,
+      addressLine2: values.address2,
+      state: values.state,
+      city: values.city,
+      postCode: values.zipCode,
+      country: values.country,
+      email: values.email,
+    };
+
+    console.log(orderData);
+
     await submitPurchase({
       chainId: polygon.id,
       transactionHash: result.transactionHash,
-      purchaseData: {
-        ...values,
-      },
+      purchaseData: orderData,
     });
   }
 
   const goToNextStep = () => {
+    console.log(form.getValues());
     setCurrentStep((prevStep) => Math.min(prevStep + 1, steps.length - 1));
-  };
-
-  const goToPreviousStep = () => {
-    setCurrentStep((prevStep) => Math.max(prevStep - 1, 0));
   };
 
   return (
@@ -153,7 +188,8 @@ export default function MultiStepForm({
           {currentStep === 0 && (
             <ProductDetails
               price={price}
-              control={form.control}
+              colors={colors}
+              form={form}
               action={goToNextStep}
             />
           )}

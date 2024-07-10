@@ -1,5 +1,4 @@
 "use client";
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
   FormControl,
@@ -10,52 +9,53 @@ import {
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { Control, FieldValues } from "react-hook-form";
 
 interface ProductFormType {
   price: string;
-  control: Control<any, any>;
+  colors: any[];
+  form: any;
   action: () => void;
 }
 
 export default function ProductDetails({
   price,
-  control,
+  colors,
+  form,
   action,
 }: ProductFormType) {
   return (
     <div className="flex flex-col space-y-4">
       <FormField
-        control={control}
+        control={form.control}
         name="size"
         render={({ field }) => (
           <FormItem>
             <FormLabel className="font-bold">Size</FormLabel>
             <FormControl>
-              <RadioGroup className="flex space-x-2" defaultValue="m">
+              <RadioGroup className="flex space-x-2" {...field}>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="xs" id="xs" />
-                  <Label htmlFor="xs">XS</Label>
+                  <RadioGroupItem value="XS" id="XS" />
+                  <Label htmlFor="size">XS</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="s" id="s" />
-                  <Label htmlFor="s">S</Label>
+                  <RadioGroupItem value="S" id="S" />
+                  <Label htmlFor="size">S</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="m" id="m" />
-                  <Label htmlFor="m">M</Label>
+                  <RadioGroupItem value="M" id="M" />
+                  <Label htmlFor="size">M</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="l" id="l" />
-                  <Label htmlFor="l">L</Label>
+                  <RadioGroupItem value="L" id="L" />
+                  <Label htmlFor="size">L</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="xl" id="xl" />
-                  <Label htmlFor="xl">XL</Label>
+                  <RadioGroupItem value="XL" id="XL" />
+                  <Label htmlFor="size">XL</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="xxl" id="xxl" />
-                  <Label htmlFor="xxl">XXL</Label>
+                  <RadioGroupItem value="2XL" id="2XL" />
+                  <Label htmlFor="size">XXL</Label>
                 </div>
               </RadioGroup>
             </FormControl>
@@ -64,21 +64,23 @@ export default function ProductDetails({
         )}
       />
       <FormField
-        control={control}
+        control={form.control}
         name="color"
         render={({ field }) => (
           <FormItem>
             <FormLabel className="font-bold">Color</FormLabel>
             <FormControl>
-              <RadioGroup className="flex space-x-2" defaultValue="black">
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="black" id="black" />
-                  <Label htmlFor="black">Black</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="white" id="white" />
-                  <Label htmlFor="white">White</Label>
-                </div>
+              <RadioGroup className="flex space-x-2" {...field}>
+                {colors.map((color: string) => {
+                  return (
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value={color} id={color.toLowerCase()} />
+                      <Label htmlFor={color.toLowerCase()}>
+                        {color.charAt(0).toUpperCase() + color.slice(1)}
+                      </Label>
+                    </div>
+                  );
+                })}
               </RadioGroup>
             </FormControl>
             <FormMessage />

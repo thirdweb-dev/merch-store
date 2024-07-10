@@ -19,6 +19,35 @@ interface ProductFormType {
 export default function AddressForm({ control, action }: ProductFormType) {
   return (
     <div className="flex flex-col space-y-4">
+      <h3 className="font-bold">Contact Information</h3>
+      <FormField
+        control={control}
+        name="email"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel className="font-bold">Email</FormLabel>
+            <FormControl>
+              <Input type="text" placeholder="Email" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <h3 className="font-bold">Shipping Address</h3>
+      <FormField
+        control={control}
+        name="country"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel className="font-bold">Country</FormLabel>
+            <FormControl>
+              <Input type="text" placeholder="Country" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
       <FormField
         control={control}
         name="name"
@@ -26,7 +55,7 @@ export default function AddressForm({ control, action }: ProductFormType) {
           <FormItem>
             <FormLabel className="font-bold">Name</FormLabel>
             <FormControl>
-              <Input type="text" placeholder="Name" />
+              <Input type="text" placeholder="Name" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -39,7 +68,7 @@ export default function AddressForm({ control, action }: ProductFormType) {
           <FormItem>
             <FormLabel className="font-bold">Address 1</FormLabel>
             <FormControl>
-              <Input type="text" placeholder="Address 1" />
+              <Input type="text" placeholder="Address 1" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -52,7 +81,7 @@ export default function AddressForm({ control, action }: ProductFormType) {
           <FormItem>
             <FormLabel className="font-bold">Address 2</FormLabel>
             <FormControl>
-              <Input type="text" placeholder="Address 2" />
+              <Input type="text" placeholder="Address 2" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -65,7 +94,7 @@ export default function AddressForm({ control, action }: ProductFormType) {
           <FormItem>
             <FormLabel className="font-bold">City</FormLabel>
             <FormControl>
-              <Input type="text" placeholder="City" />
+              <Input type="text" placeholder="City" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -76,22 +105,23 @@ export default function AddressForm({ control, action }: ProductFormType) {
         name="state"
         render={({ field }) => (
           <FormItem>
-            <FormLabel className="font-bold">City</FormLabel>
+            <FormLabel className="font-bold">State</FormLabel>
             <FormControl>
-              <Input type="text" placeholder="State" />
+              <Input type="text" placeholder="State" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
+
       <FormField
         control={control}
         name="zipCode"
         render={({ field }) => (
           <FormItem>
-            <FormLabel className="font-bold">City</FormLabel>
+            <FormLabel className="font-bold">Zip Code</FormLabel>
             <FormControl>
-              <Input type="text" placeholder="Zip Code" />
+              <Input type="text" placeholder="Zip Code" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>

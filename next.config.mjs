@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "thirdweb.com",
       },
+      {
+        protocol: "https",
+        hostname: "gelato-api-live.s3.eu-west-1.amazonaws.com",
+      },
     ],
   },
 };

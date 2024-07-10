@@ -7,6 +7,8 @@ export interface ProductCardType {
   backImageUrl?: string;
   title: string;
   price: string;
+  colors: any[];
+  variants: any[];
 }
 
 export default function ProductCard({
@@ -15,6 +17,8 @@ export default function ProductCard({
   backImageUrl,
   title,
   price,
+  colors,
+  variants,
 }: ProductCardType) {
   return (
     <ProductModal
@@ -47,6 +51,8 @@ export default function ProductCard({
       backImageUrl={backImageUrl}
       title={title}
       price={price}
+      colors={colors}
+      variants={variants}
     />
   );
 }

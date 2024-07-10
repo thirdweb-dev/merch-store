@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ProductCardType } from "../ProductCard";
 import MultiStepForm from "../MultiStepForm";
 
@@ -13,18 +13,23 @@ export default function ProductModal({
   backImageUrl,
   title,
   price,
+  colors,
+  variants,
 }: ProductModalType) {
   return (
-    <Dialog>
-      <DialogTrigger>{trigger}</DialogTrigger>
-      <DialogContent className="flex flex-col items-center space-y-4 overflow-y-scroll">
+    <Sheet>
+      <SheetTrigger>{trigger}</SheetTrigger>
+      <SheetContent className="flex flex-col items-center space-y-4 overflow-y-scroll">
         <MultiStepForm
+          id={id}
           title={title}
           frontImageUrl={frontImageUrl}
           backImageUrl={backImageUrl}
           price={price}
+          colors={colors}
+          variants={variants}
         />
-      </DialogContent>
-    </Dialog>
+      </SheetContent>
+    </Sheet>
   );
 }

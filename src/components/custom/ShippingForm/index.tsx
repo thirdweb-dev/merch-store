@@ -31,18 +31,19 @@ export default function ShippingForm({ price, control }: ShippingFormType) {
               <RadioGroup
                 className="flex flex-col space-y-0"
                 defaultValue="free"
+                {...field}
               >
                 <div className="flex items-center space-x-2 p-4 border-b border-border">
                   <RadioGroupItem value="free" id="free" />
-                  <Label htmlFor="method">Free Shipping</Label>
+                  <Label htmlFor="free">Free Shipping</Label>
                 </div>
                 <div className="flex items-center space-x-2 p-4 border-b border-border">
-                  <RadioGroupItem value="domestic" id="domestic" />
-                  <Label htmlFor="domestic">Domestic Ground</Label>
+                  <RadioGroupItem value="normal" id="normal" />
+                  <Label htmlFor="normal">Domestic Ground</Label>
                 </div>
                 <div className="flex items-center space-x-2 p-4">
-                  <RadioGroupItem value="expedited" id="expedited" />
-                  <Label htmlFor="expediated">Expedited</Label>
+                  <RadioGroupItem value="express" id="express" />
+                  <Label htmlFor="express">Expedited</Label>
                 </div>
               </RadioGroup>
             </FormControl>
