@@ -12,13 +12,19 @@ import {
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { Loader } from "lucide-react";
 
 interface ShippingFormType {
   price: string;
   control: Control<any, any>;
+  loading: boolean;
 }
 
-export default function ShippingForm({ price, control }: ShippingFormType) {
+export default function ShippingForm({
+  price,
+  control,
+  loading,
+}: ShippingFormType) {
   return (
     <div className="flex flex-col space-y-8">
       <FormField
@@ -57,7 +63,11 @@ export default function ShippingForm({ price, control }: ShippingFormType) {
       >
         <h3 className="flex items-center justify-center w-full space-x-1 bg-gradient-to-r from-[#FDE3F4] to-[#EEE1F7] dark:from-[#260C1E] dark:to-[#180B20] rounded-full py-2 px-[10px] text-primary font-semibold">
           <span className="bg-gradient-to-r from-[#f213a4] via-[#B20DAF] to-[#5204BF] inline-block text-transparent bg-clip-text text-nowrap dark:text-white">
-            {`Purchase for ${price} USDC`}
+            {loading ? (
+              <Loader className="animate-spin h-[1rem] w-[1rem]" />
+            ) : (
+              `Purchase for ${price} USDC`
+            )}
           </span>
         </h3>
       </Button>

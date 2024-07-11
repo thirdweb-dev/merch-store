@@ -63,6 +63,7 @@ export default function MultiStepForm({
 }: MultiStepFormType) {
   const account = useActiveAccount();
   const [currentStep, setCurrentStep] = useState(0);
+  const [loading, setLoading] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -81,11 +82,9 @@ export default function MultiStepForm({
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+    setLoading(true);
 
     if (!account) {
-      alert("Please login with your wallet");
       return;
     }
 
@@ -132,13 +131,13 @@ export default function MultiStepForm({
       email: values.email,
     };
 
-    console.log(orderData);
-
     await submitPurchase({
       chainId: polygon.id,
       transactionHash: result.transactionHash,
       purchaseData: orderData,
     });
+
+    setLoading(false);
 
     goToNextStep();
   }
@@ -200,7 +199,11 @@ export default function MultiStepForm({
             />
           )}
           {currentStep === 2 && (
-            <ShippingForm price={price} control={form.control} />
+            <ShippingForm
+              price={price}
+              control={form.control}
+              loading={loading}
+            />
           )}
           {currentStep === 3 && <Confirmation title={title} />}
         </form>
