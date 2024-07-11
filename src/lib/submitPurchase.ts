@@ -29,7 +29,7 @@ export const submitPurchase = async (purchaseData: SubmitPurchaseParams) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-client-id": process.env.NEXT_PUBLIC_THIRDWEB_DEV_CLIENT_ID,
+        "x-client-id": `${process.env.NEXT_PUBLIC_THIRDWEB_DEV_CLIENT_ID}`,
       },
       body: JSON.stringify(purchaseData),
     });

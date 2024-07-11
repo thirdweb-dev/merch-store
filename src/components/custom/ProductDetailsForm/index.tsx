@@ -18,46 +18,6 @@ interface ProductFormType {
   action: () => void;
 }
 
-/*
-  <RadioGroup className="flex space-x-2" {...field}>
-                <FormItem className="flex items-center space-x-2">
-                  <FormControl>
-                    <RadioGroupItem value="XS" id="XS" />
-                  </FormControl>
-                  <FormLabel htmlFor="XS">XS</FormLabel>
-                </FormItem>
-                <FormItem className="flex items-center space-x-2">
-                  <FormControl>
-                    <RadioGroupItem value="S" id="S" />
-                  </FormControl>
-                  <FormLabel htmlFor="S">S</FormLabel>
-                </FormItem>
-                <FormItem className="flex items-center space-x-2">
-                  <FormControl>
-                    <RadioGroupItem value="M" id="M" />
-                  </FormControl>
-                  <FormLabel htmlFor="M">M</FormLabel>
-                </FormItem>
-                <FormItem className="flex items-center space-x-2">
-                  <FormControl>
-                    <RadioGroupItem value="L" id="L" />
-                  </FormControl>
-                  <FormLabel htmlFor="L">L</FormLabel>
-                </FormItem>
-                <FormItem className="flex items-center space-x-2">
-                  <FormControl>
-                    <RadioGroupItem value="XL" id="XL" />
-                  </FormControl>
-                  <FormLabel htmlFor="XL">XL</FormLabel>
-                </FormItem>
-                <FormItem className="flex items-center space-x-2">
-                  <FormControl>
-                    <RadioGroupItem value="2XL" id="2XL" />
-                  </FormControl>
-                  <FormLabel htmlFor="2XL">XXL</FormLabel>
-                </FormItem>
-              </RadioGroup>
-*/
 export default function ProductDetailsForm({
   price,
   colors,
@@ -99,7 +59,7 @@ export default function ProductDetailsForm({
               <RadioGroup className="flex space-x-2" {...field}>
                 {colors.map((color: string) => {
                   return (
-                    <div className="flex items-center space-x-2">
+                    <div key={color} className="flex items-center space-x-2">
                       <RadioGroupItem value={color} id={color.toLowerCase()} />
                       <Label htmlFor={color.toLowerCase()}>
                         {color.charAt(0).toUpperCase() + color.slice(1)}
