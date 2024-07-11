@@ -4,12 +4,9 @@ export function generateOrderId(address: string) {
 }
 
 export function getProductUid(variants: any[], color: string, size: string) {
-  console.log(variants);
-  console.log(color);
   const colorVariants = variants.filter((variant: any) =>
     variant.title.includes(color)
   );
-  console.log(colorVariants);
   const variant = colorVariants.filter((variant: any) =>
     variant.title.includes(size)
   )[0];

@@ -35,7 +35,7 @@ export default async function Home() {
                 id={data.products[0].id}
                 frontImageUrl={data.products[0].previewUrl}
                 title={data.products[0].title}
-                colors={data.products[0].productVariantOptions[1].values}
+                productVariantOptions={data.products[0].productVariantOptions}
                 variants={data.products[0].variants}
                 price={"25"}
               />
@@ -49,7 +49,7 @@ export default async function Home() {
                 id={data.products[0].id}
                 frontImageUrl={data.products[0].previewUrl}
                 title={data.products[0].title}
-                colors={data.products[0].productVariantOptions[1].values}
+                productVariantOptions={data.products[0].productVariantOptions}
                 variants={data.products[0].variants}
                 price={"25"}
               />
@@ -60,7 +60,7 @@ export default async function Home() {
                 id={data.products[1].id}
                 frontImageUrl={data.products[1].previewUrl}
                 title={data.products[1].title}
-                colors={data.products[1].productVariantOptions[1].values}
+                productVariantOptions={data.products[1].productVariantOptions}
                 variants={data.products[1].variants}
                 price={"25"}
               />
@@ -70,7 +70,7 @@ export default async function Home() {
                   id={data.products[2].id}
                   frontImageUrl={data.products[2].previewUrl}
                   title={data.products[2].title}
-                  colors={data.products[2].productVariantOptions[1].values}
+                  productVariantOptions={data.products[2].productVariantOptions}
                   variants={data.products[2].variants}
                   price={"25"}
                 />
@@ -89,7 +89,7 @@ export default async function Home() {
                 id={product.id}
                 frontImageUrl={product.previewUrl}
                 title={product.title}
-                colors={product.productVariantOptions[1].values}
+                productVariantOptions={product.productVariantOptions}
                 variants={product.variants}
                 price={"25"}
               />

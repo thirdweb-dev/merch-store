@@ -48,7 +48,7 @@ interface MultiStepFormType {
   frontImageUrl: string;
   backImageUrl?: string;
   price: string;
-  colors: any;
+  productVariantOptions: any[];
   variants: any[];
 }
 
@@ -58,7 +58,7 @@ export default function MultiStepForm({
   frontImageUrl,
   backImageUrl,
   price,
-  colors,
+  productVariantOptions,
   variants,
 }: MultiStepFormType) {
   const account = useActiveAccount();
@@ -108,7 +108,10 @@ export default function MultiStepForm({
     orderData.items = [
       {
         itemReferenceId: id,
-        productUid: getProductUid(variants, values.color, values.size),
+        productUid:
+          variants.length > 1
+            ? getProductUid(variants, values.color, values.size)
+            : variants[0].productUid,
         files: [
           {
             type: "default",
@@ -185,7 +188,7 @@ export default function MultiStepForm({
           {currentStep === 0 && (
             <ProductDetailsForm
               price={price}
-              colors={colors}
+              productVariantOptions={productVariantOptions}
               form={form}
               action={goToNextStep}
               account={account}

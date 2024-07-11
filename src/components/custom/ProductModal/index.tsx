@@ -13,7 +13,7 @@ export default function ProductModal({
   backImageUrl,
   title,
   price,
-  colors,
+  productVariantOptions,
   variants,
 }: ProductModalType) {
   return (
@@ -26,7 +26,7 @@ export default function ProductModal({
           frontImageUrl={frontImageUrl}
           backImageUrl={backImageUrl}
           price={price}
-          colors={colors}
+          productVariantOptions={productVariantOptions}
           variants={variants}
         />
       </SheetContent>

@@ -36,18 +36,18 @@ export default function ShippingForm({
             <FormControl className="border border-border rounded-md">
               <RadioGroup
                 className="flex flex-col space-y-0"
-                defaultValue="free"
-                {...field}
+                onValueChange={field.onChange}
+                defaultValue={field.value}
               >
-                <div className="flex items-center space-x-2 p-4 border-b border-border">
+                <div className="flex items-center space-x-2 px-3 py-5 border-b border-border">
                   <RadioGroupItem value="free" id="free" />
                   <Label htmlFor="free">Free Shipping</Label>
                 </div>
-                <div className="flex items-center space-x-2 p-4 border-b border-border">
+                <div className="flex items-center space-x-2 p-3 pb-5 border-b border-border">
                   <RadioGroupItem value="normal" id="normal" />
                   <Label htmlFor="normal">Domestic Ground</Label>
                 </div>
-                <div className="flex items-center space-x-2 p-4">
+                <div className="flex items-center space-x-2 p-3 pb-5">
                   <RadioGroupItem value="express" id="express" />
                   <Label htmlFor="express">Expedited</Label>
                 </div>

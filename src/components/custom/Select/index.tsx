@@ -9,9 +9,11 @@ import {
 FormControl;
 
 export default function SelectBox({
+  placeholder,
   options,
   field,
 }: {
+  placeholder: string;
   options: any[];
   field: any;
 }) {
@@ -19,7 +21,7 @@ export default function SelectBox({
     <Select onValueChange={field.onChange} defaultValue={field.value}>
       <FormControl>
         <SelectTrigger className="w-full">
-          <SelectValue placeholder="Theme" />
+          <SelectValue placeholder={placeholder} />
         </SelectTrigger>
       </FormControl>
       <SelectContent>
