@@ -29,14 +29,22 @@ export default function Header() {
       <div className="flex space-x-4 items-center ">
         <Button
           asChild
-          className="flex items-center space-x-2 bg-background border border-border text-primary"
+          className="flex items-center space-x-2 bg-background border border-border text-primary hover:bg-background hover:border-[#FDE3F4]"
         >
           <Link href="https://thirdweb.com/">
-            <span>{`Check Out thirdweb`}</span>
-            <ExternalLink className="w-[1rem] h-[1rem]" />
+            <div className="pl-0 pr-3 border-r border-border">
+              <div className="w-[1rem] h-[1rem] relative">
+                <Image
+                  src={"/thirdweb.svg"}
+                  fill={true}
+                  alt={"thirdweb logo"}
+                />
+              </div>
+            </div>
+            <div>{`Build on thirdweb`}</div>
           </Link>
         </Button>
-        <LoginButton />
+        <LoginButton label={"Log In"} />
       </div>
     </div>
   );

@@ -26,7 +26,7 @@ export default async function Home() {
 
   return (
     <main className="flex min-h-screen flex-col space-y-8 p-4">
-      <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 h-[800px]">
+      <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0 h-[800px]">
         <div className="w-full h-3/4 md:w-1/2 md:h-full">
           <ProductCard
             key={data.products[0].id}

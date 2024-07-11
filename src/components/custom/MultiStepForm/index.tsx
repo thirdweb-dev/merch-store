@@ -19,6 +19,7 @@ import { useActiveAccount } from "thirdweb/react";
 import { submitPurchase } from "@/lib/submitPurchase";
 import { orderData } from "@/lib/orderData";
 import { generateOrderId, getProductUid } from "@/lib/gelato";
+import Confirmation from "../Confirmation";
 
 const steps = [
   "Product Details",
@@ -88,56 +89,58 @@ export default function MultiStepForm({
       return;
     }
 
-    const contract = getContract({
-      client: THIRDWEB_CLIENT,
-      chain: polygon,
-      address: "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
-    });
+    // const contract = getContract({
+    //   client: THIRDWEB_CLIENT,
+    //   chain: polygon,
+    //   address: "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
+    // });
 
-    const transaction = transfer({
-      contract,
-      to: "0xE443E285925CBF30a3AF2eAD6b2f3947764fFEB6",
-      amount: parseFloat(price),
-    });
+    // const transaction = transfer({
+    //   contract,
+    //   to: "0xE443E285925CBF30a3AF2eAD6b2f3947764fFEB6",
+    //   amount: parseFloat(price),
+    // });
 
-    const result = await sendTransaction({ transaction, account });
+    // const result = await sendTransaction({ transaction, account });
 
-    orderData.orderReferenceId = generateOrderId(account.address);
-    orderData.customerReferenceId = account.address;
-    orderData.shipmentMethodUid = values.method;
-    orderData.items = [
-      {
-        itemReferenceId: id,
-        productUid: getProductUid(variants, values.color, values.size),
-        files: [
-          {
-            type: "default",
-            url: frontImageUrl,
-          },
-        ],
-        quantity: 1,
-      },
-    ];
+    // orderData.orderReferenceId = generateOrderId(account.address);
+    // orderData.customerReferenceId = account.address;
+    // orderData.shipmentMethodUid = values.method;
+    // orderData.items = [
+    //   {
+    //     itemReferenceId: id,
+    //     productUid: getProductUid(variants, values.color, values.size),
+    //     files: [
+    //       {
+    //         type: "default",
+    //         url: frontImageUrl,
+    //       },
+    //     ],
+    //     quantity: 1,
+    //   },
+    // ];
 
-    orderData.shippingAddress = {
-      firstName: values.name.split(/ (.*)/)[0],
-      lastName: values.name.split(/ (.*)/)[1],
-      addressLine1: values.address1,
-      addressLine2: values.address2,
-      state: values.state,
-      city: values.city,
-      postCode: values.zipCode,
-      country: values.country,
-      email: values.email,
-    };
+    // orderData.shippingAddress = {
+    //   firstName: values.name.split(/ (.*)/)[0],
+    //   lastName: values.name.split(/ (.*)/)[1],
+    //   addressLine1: values.address1,
+    //   addressLine2: values.address2,
+    //   state: values.state,
+    //   city: values.city,
+    //   postCode: values.zipCode,
+    //   country: values.country,
+    //   email: values.email,
+    // };
 
-    console.log(orderData);
+    // console.log(orderData);
 
-    await submitPurchase({
-      chainId: polygon.id,
-      transactionHash: result.transactionHash,
-      purchaseData: orderData,
-    });
+    // await submitPurchase({
+    //   chainId: polygon.id,
+    //   transactionHash: result.transactionHash,
+    //   purchaseData: orderData,
+    // });
+
+    goToNextStep();
   }
 
   const goToNextStep = () => {
@@ -145,33 +148,28 @@ export default function MultiStepForm({
     setCurrentStep((prevStep) => Math.min(prevStep + 1, steps.length - 1));
   };
 
+  const goToPreviousStep = () => {
+    console.log(form.getValues());
+    setCurrentStep((prevStep) => Math.max(prevStep - 1, 0));
+  };
+
   return (
     <div className="flex flex-col space-y-4 w-full">
-      {currentStep == 0 ? (
-        <>
+      {currentStep == 0 || currentStep == 3 ? (
+        <div className="flex flex-col space-y-2 items-center">
           <h3 className="font-bold">{title}</h3>
-          <div className="relative w-[25rem] h-[25rem] aspect-square cursor-pointer rounded-lg overflow-hidden transition-all">
+          <div className="relative w-full h-full aspect-square cursor-pointer rounded-lg overflow-hidden transition-all">
             <Image
               src={frontImageUrl}
               fill={true}
               alt={"t-shirt front preview"}
-              className={
-                "absolute top-0 left-0 transition-opacity duration-500 opacity-100 z-1 hover:opacity-0"
-              }
+              className={"absolute top-0 left-0 "}
             />
-            {backImageUrl ? (
-              <Image
-                src={backImageUrl}
-                fill={true}
-                alt={"t-shirt back preview"}
-                className="absolute top-0 left-0 transition-opacity duration-500 opacity-0 z-0 hover:opacity-100"
-              />
-            ) : null}
           </div>
-        </>
+        </div>
       ) : (
-        <div className="flex space-x-2 items-center">
-          <div className="relative w-[5rem] h-[5rem] aspect-square cursor-pointer rounded-lg overflow-hidden transition-all">
+        <div className="flex space-x-2 items-center border-b border-border pb-4 ">
+          <div className="relative w-[3rem] h-[3rem] aspect-square cursor-pointer rounded-md overflow-hidden transition-all">
             <Image
               src={frontImageUrl}
               fill={true}
@@ -191,14 +189,20 @@ export default function MultiStepForm({
               colors={colors}
               form={form}
               action={goToNextStep}
+              account={account}
             />
           )}
           {currentStep === 1 && (
-            <AddressForm control={form.control} action={goToNextStep} />
+            <AddressForm
+              control={form.control}
+              action={goToNextStep}
+              back={goToPreviousStep}
+            />
           )}
           {currentStep === 2 && (
             <ShippingForm price={price} control={form.control} />
           )}
+          {currentStep === 3 && <Confirmation title={title} />}
         </form>
       </Form>
     </div>
