@@ -89,58 +89,56 @@ export default function MultiStepForm({
       return;
     }
 
-    // const contract = getContract({
-    //   client: THIRDWEB_CLIENT,
-    //   chain: polygon,
-    //   address: "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
-    // });
+    const contract = getContract({
+      client: THIRDWEB_CLIENT,
+      chain: polygon,
+      address: "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
+    });
 
-    // const transaction = transfer({
-    //   contract,
-    //   to: "0xE443E285925CBF30a3AF2eAD6b2f3947764fFEB6",
-    //   amount: parseFloat(price),
-    // });
+    const transaction = transfer({
+      contract,
+      to: "0xE443E285925CBF30a3AF2eAD6b2f3947764fFEB6",
+      amount: parseFloat(price),
+    });
 
-    // const result = await sendTransaction({ transaction, account });
+    const result = await sendTransaction({ transaction, account });
 
-    // orderData.orderReferenceId = generateOrderId(account.address);
-    // orderData.customerReferenceId = account.address;
-    // orderData.shipmentMethodUid = values.method;
-    // orderData.items = [
-    //   {
-    //     itemReferenceId: id,
-    //     productUid: getProductUid(variants, values.color, values.size),
-    //     files: [
-    //       {
-    //         type: "default",
-    //         url: frontImageUrl,
-    //       },
-    //     ],
-    //     quantity: 1,
-    //   },
-    // ];
+    orderData.orderReferenceId = generateOrderId(account.address);
+    orderData.customerReferenceId = account.address;
+    orderData.shipmentMethodUid = values.method;
+    orderData.items = [
+      {
+        itemReferenceId: id,
+        productUid: getProductUid(variants, values.color, values.size),
+        files: [
+          {
+            type: "default",
+            url: frontImageUrl,
+          },
+        ],
+        quantity: 1,
+      },
+    ];
 
-    // orderData.shippingAddress = {
-    //   firstName: values.name.split(/ (.*)/)[0],
-    //   lastName: values.name.split(/ (.*)/)[1],
-    //   addressLine1: values.address1,
-    //   addressLine2: values.address2,
-    //   state: values.state,
-    //   city: values.city,
-    //   postCode: values.zipCode,
-    //   country: values.country,
-    //   email: values.email,
-    // };
+    orderData.shippingAddress = {
+      firstName: values.name.split(/ (.*)/)[0],
+      lastName: values.name.split(/ (.*)/)[1],
+      addressLine1: values.address1,
+      addressLine2: values.address2,
+      state: values.state,
+      city: values.city,
+      postCode: values.zipCode,
+      country: values.country,
+      email: values.email,
+    };
 
-    // console.log(orderData);
+    console.log(orderData);
 
-    // await submitPurchase({
-    //   chainId: polygon.id,
-    //   transactionHash: result.transactionHash,
-    //   purchaseData: orderData,
-    // });
-
-    console.log(values);
+    await submitPurchase({
+      chainId: polygon.id,
+      transactionHash: result.transactionHash,
+      purchaseData: orderData,
+    });
 
     goToNextStep();
   }
