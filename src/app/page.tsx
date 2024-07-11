@@ -25,7 +25,7 @@ export default async function Home() {
   const data = await getData();
 
   return (
-    <main className="flex h-full flex-col space-y-8 p-4">
+    <main className="flex h-full flex-col space-y-4 p-4">
       <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0 h-[800px]">
         {data.products.length === 1 ? (
           <>
