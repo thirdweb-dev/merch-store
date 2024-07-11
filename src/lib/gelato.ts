@@ -3,11 +3,8 @@ export function generateOrderId(address: string) {
   return `${address}-${randomNumber}`;
 }
 
-export function getProductUid(variants: any[], color: string, size: string) {
-  const colorVariants = variants.filter((variant: any) =>
-    variant.title.includes(color)
-  );
-  const variant = colorVariants.filter((variant: any) =>
+export function getProductUid(variants: any[], size: string) {
+  const variant = variants.filter((variant: any) =>
     variant.title.includes(size)
   )[0];
   return variant.productUid;

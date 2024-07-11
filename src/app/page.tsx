@@ -4,9 +4,9 @@ async function getData() {
   const res = await fetch(
     `https://ecommerce.gelatoapis.com/v1/stores/${process.env.NEXT_PUBLIC_GELATO_STORE_ID}/products`,
     {
-      method: "GET",
       headers: {
-        "X-API-KEY": process.env.NEXT_PUBLIC_GELATO_API_KEY!!,
+        "Content-Type": "application/json",
+        "X-API-KEY": `${process.env.NEXT_PUBLIC_GELATO_API_KEY}`,
       },
     }
   );

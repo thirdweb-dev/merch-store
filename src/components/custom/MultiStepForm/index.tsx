@@ -110,7 +110,7 @@ export default function MultiStepForm({
         itemReferenceId: id,
         productUid:
           variants.length > 1
-            ? getProductUid(variants, values.color, values.size)
+            ? getProductUid(variants, values.size)
             : variants[0].productUid,
         files: [
           {

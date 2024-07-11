@@ -37,6 +37,7 @@ export default function ProductDetailsForm({
 
             return (
               <FormField
+                key={option.name.toLowerCase()}
                 control={form.control}
                 name={option.name.toLowerCase()}
                 render={({ field }) => (
