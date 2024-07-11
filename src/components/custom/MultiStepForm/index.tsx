@@ -6,9 +6,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
 import { z } from "zod";
-import ProductDetails from "../ProductDetails";
 import AddressForm from "../AddressForm";
 import ShippingForm from "../ShippingForm";
+import ProductDetailsForm from "../ProductDetailsForm";
 
 import Image from "next/image";
 import { getContract, sendTransaction } from "thirdweb";
@@ -186,7 +186,7 @@ export default function MultiStepForm({
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           {currentStep === 0 && (
-            <ProductDetails
+            <ProductDetailsForm
               price={price}
               colors={colors}
               form={form}

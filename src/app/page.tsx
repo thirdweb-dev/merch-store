@@ -26,8 +26,8 @@ export default async function Home() {
 
   return (
     <main className="flex min-h-screen flex-col space-y-8 p-4">
-      <div className="flex space-x-4 h-[800px]">
-        <div className="w-1/2 h-full">
+      <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 h-[800px]">
+        <div className="w-full h-3/4 md:w-1/2 md:h-full">
           <ProductCard
             key={data.products[0].id}
             id={data.products[0].id}
@@ -38,7 +38,7 @@ export default async function Home() {
             price={"25"}
           />
         </div>
-        <div className="flex flex-col space-y-4 w-1/2 aspect-square">
+        <div className="flex flex-col space-y-4 w-full md:w-1/2">
           <ProductCard
             key={data.products[0].id}
             id={data.products[0].id}
