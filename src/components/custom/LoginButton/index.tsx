@@ -3,6 +3,7 @@
 import { ConnectButton } from "thirdweb/react";
 import { THIRDWEB_CLIENT } from "@/lib/thirdweb";
 import { inAppWallet } from "thirdweb/wallets";
+import { useTheme } from "next-themes";
 
 const wallets = [
   inAppWallet({
@@ -13,5 +14,12 @@ const wallets = [
 ];
 
 export default function LoginButton() {
-  return <ConnectButton wallets={wallets} client={THIRDWEB_CLIENT} />;
+  const { theme } = useTheme();
+  return (
+    <ConnectButton
+      wallets={wallets}
+      client={THIRDWEB_CLIENT}
+      theme={theme == "light" ? "light" : "dark"}
+    />
+  );
 }

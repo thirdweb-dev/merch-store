@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ProductModal from "../ProductModal";
+import ProductInfoBadge from "../ProductInfoBadge";
 
 export interface ProductCardType {
   id: string;
@@ -24,27 +25,20 @@ export default function ProductCard({
     <ProductModal
       id={id}
       trigger={
-        <div className="flex flex-col space-y-4 items-center border-b md:border-r border-border p-8">
-          <div className="relative  w-[25rem] h-[25rem] aspect-square cursor-pointer rounded-lg overflow-hidden">
-            <Image
-              src={frontImageUrl}
-              fill={true}
-              alt={"t-shirt preview"}
-              className={
-                "absolute top-0 left-0 transition-opacity duration-500 opacity-100 z-1 hover:opacity-0"
-              }
-            />
-            {backImageUrl ? (
+        <div className="bg-border p-[.125rem] rounded-lg w-full h-full relative hover:bg-gradient-to-r from-[#f213a4] via-[#B20DAF] to-[#5204BF] transition-all hover:-translate-y-1">
+          <div className="flex flex-col space-y-4 p-8 items-center justify-center bg-card rounded-lg w-full h-full relative">
+            <div className="relative  w-[20rem] h-[20rem] aspect-square cursor-pointer rounded-lg overflow-hidden">
               <Image
-                src={backImageUrl}
+                src={frontImageUrl}
                 fill={true}
                 alt={"t-shirt preview"}
-                className="absolute top-0 left-0 transition-opacity duration-500 opacity-0 z-0 hover:opacity-100"
+                className={"absolute top-0 left-0"}
               />
-            ) : null}
+            </div>
+            <div className="absolute bottom-8 left-8">
+              <ProductInfoBadge title={title} price={price} />
+            </div>
           </div>
-          <h2 className="font-bold">{title}</h2>
-          <h3>{`${price} USDC`}</h3>
         </div>
       }
       frontImageUrl={frontImageUrl}

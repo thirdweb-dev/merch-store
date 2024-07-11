@@ -25,18 +25,52 @@ export default async function Home() {
   const data = await getData();
 
   return (
-    <main className="flex min-h-screen flex-col space-y-8">
+    <main className="flex min-h-screen flex-col space-y-8 p-4">
+      <div className="flex space-x-4 h-[800px]">
+        <div className="w-1/2 h-full">
+          <ProductCard
+            key={data.products[0].id}
+            id={data.products[0].id}
+            frontImageUrl={data.products[0].previewUrl}
+            title={data.products[0].title}
+            colors={data.products[0].productVariantOptions[1].values}
+            variants={data.products[0].variants}
+            price={"25"}
+          />
+        </div>
+        <div className="flex flex-col space-y-4 w-1/2 aspect-square">
+          <ProductCard
+            key={data.products[0].id}
+            id={data.products[0].id}
+            frontImageUrl={data.products[0].previewUrl}
+            title={data.products[0].title}
+            colors={data.products[0].productVariantOptions[1].values}
+            variants={data.products[0].variants}
+            price={"25"}
+          />
+          <ProductCard
+            key={data.products[0].id}
+            id={data.products[0].id}
+            frontImageUrl={data.products[0].previewUrl}
+            title={data.products[0].title}
+            colors={data.products[0].productVariantOptions[1].values}
+            variants={data.products[0].variants}
+            price={"25"}
+          />
+        </div>
+      </div>
+
       <div className="grid grid-cols-2 lg:grid-cols-3">
-        {data.products.map((product: any) => {
+        {data.products.slice(2).map((product: any) => {
           return (
             <ProductCard
+              key={product.id}
               id={product.id}
               frontImageUrl={product.previewUrl}
-              backImageUrl={"/shirt-back.jpeg"}
               title={product.title}
               colors={product.productVariantOptions[1].values}
               variants={product.variants}
-              price={"0.01"}
+              price={"25"}
             />
           );
         })}

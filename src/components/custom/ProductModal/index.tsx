@@ -18,7 +18,7 @@ export default function ProductModal({
 }: ProductModalType) {
   return (
     <Sheet>
-      <SheetTrigger>{trigger}</SheetTrigger>
+      <SheetTrigger className="w-full h-full">{trigger}</SheetTrigger>
       <SheetContent className="flex flex-col items-center space-y-4 overflow-y-scroll">
         <MultiStepForm
           id={id}
