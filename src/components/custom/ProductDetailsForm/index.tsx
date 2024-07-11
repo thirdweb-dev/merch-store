@@ -59,7 +59,11 @@ export default function ProductDetailsForm({
           <FormItem>
             <FormLabel className="font-bold">Color</FormLabel>
             <FormControl>
-              <RadioGroup className="flex space-x-2" {...field}>
+              <RadioGroup
+                className="flex space-x-2"
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+              >
                 {colors.map((color: string) => {
                   return (
                     <div key={color} className="flex items-center space-x-2">

@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThirdwebProvider } from "thirdweb/react";
 import Header from "@/components/custom/Header";
 import "./globals.css";
+import Footer from "@/components/custom/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,12 +24,13 @@ export default function RootLayout({
         <ThirdwebProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
-            enableSystem
+            defaultTheme="dark"
             disableTransitionOnChange
           >
-            <Header />
-            {children}
+            <div className="max-w-[1440px] mx-auto">
+              <Header />
+              {children}
+            </div>
           </ThemeProvider>
         </ThirdwebProvider>
       </body>

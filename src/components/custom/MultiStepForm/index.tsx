@@ -140,6 +140,8 @@ export default function MultiStepForm({
     //   purchaseData: orderData,
     // });
 
+    console.log(values);
+
     goToNextStep();
   }
 

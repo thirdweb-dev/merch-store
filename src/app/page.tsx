@@ -25,56 +25,78 @@ export default async function Home() {
   const data = await getData();
 
   return (
-    <main className="flex min-h-screen flex-col space-y-8 p-4">
+    <main className="flex h-full flex-col space-y-8 p-4">
       <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0 h-[800px]">
-        <div className="w-full h-3/4 md:w-1/2 md:h-full">
-          <ProductCard
-            key={data.products[0].id}
-            id={data.products[0].id}
-            frontImageUrl={data.products[0].previewUrl}
-            title={data.products[0].title}
-            colors={data.products[0].productVariantOptions[1].values}
-            variants={data.products[0].variants}
-            price={"25"}
-          />
-        </div>
-        <div className="flex flex-col space-y-4 w-full md:w-1/2">
-          <ProductCard
-            key={data.products[0].id}
-            id={data.products[0].id}
-            frontImageUrl={data.products[0].previewUrl}
-            title={data.products[0].title}
-            colors={data.products[0].productVariantOptions[1].values}
-            variants={data.products[0].variants}
-            price={"25"}
-          />
-          <ProductCard
-            key={data.products[0].id}
-            id={data.products[0].id}
-            frontImageUrl={data.products[0].previewUrl}
-            title={data.products[0].title}
-            colors={data.products[0].productVariantOptions[1].values}
-            variants={data.products[0].variants}
-            price={"25"}
-          />
-        </div>
+        {data.products.length === 1 ? (
+          <>
+            <div className="w-full h-3/4">
+              <ProductCard
+                key={data.products[0].id}
+                id={data.products[0].id}
+                frontImageUrl={data.products[0].previewUrl}
+                title={data.products[0].title}
+                colors={data.products[0].productVariantOptions[1].values}
+                variants={data.products[0].variants}
+                price={"25"}
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="w-full h-3/4 md:w-1/2 md:h-full">
+              <ProductCard
+                key={data.products[0].id}
+                id={data.products[0].id}
+                frontImageUrl={data.products[0].previewUrl}
+                title={data.products[0].title}
+                colors={data.products[0].productVariantOptions[1].values}
+                variants={data.products[0].variants}
+                price={"25"}
+              />
+            </div>
+            <div className="flex flex-col space-y-4 w-full md:w-1/2">
+              <ProductCard
+                key={data.products[1].id}
+                id={data.products[1].id}
+                frontImageUrl={data.products[1].previewUrl}
+                title={data.products[1].title}
+                colors={data.products[1].productVariantOptions[1].values}
+                variants={data.products[1].variants}
+                price={"25"}
+              />
+              {data.products.length > 2 ? (
+                <ProductCard
+                  key={data.products[2].id}
+                  id={data.products[2].id}
+                  frontImageUrl={data.products[2].previewUrl}
+                  title={data.products[2].title}
+                  colors={data.products[2].productVariantOptions[1].values}
+                  variants={data.products[2].variants}
+                  price={"25"}
+                />
+              ) : null}
+            </div>
+          </>
+        )}
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-3">
-        {data.products.slice(2).map((product: any) => {
-          return (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              frontImageUrl={product.previewUrl}
-              title={product.title}
-              colors={product.productVariantOptions[1].values}
-              variants={product.variants}
-              price={"25"}
-            />
-          );
-        })}
-      </div>
+      {data.products.length > 3 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {data.products.slice(2).map((product: any) => {
+            return (
+              <ProductCard
+                key={product.id}
+                id={product.id}
+                frontImageUrl={product.previewUrl}
+                title={product.title}
+                colors={product.productVariantOptions[1].values}
+                variants={product.variants}
+                price={"25"}
+              />
+            );
+          })}
+        </div>
+      ) : null}
     </main>
   );
 }

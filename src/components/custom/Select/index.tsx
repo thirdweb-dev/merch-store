@@ -16,7 +16,7 @@ export default function SelectBox({
   field: any;
 }) {
   return (
-    <Select {...field}>
+    <Select onValueChange={field.onChange} defaultValue={field.value}>
       <FormControl>
         <SelectTrigger className="w-full">
           <SelectValue placeholder="Theme" />
