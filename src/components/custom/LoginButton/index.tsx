@@ -2,7 +2,6 @@
 
 import { ConnectButton } from "thirdweb/react";
 import { THIRDWEB_CLIENT } from "@/lib/thirdweb";
-import { inAppWallet } from "thirdweb/wallets";
 import { useTheme } from "next-themes";
 
 export default function LoginButton({ label }: { label: string }) {
