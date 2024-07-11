@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "thirdweb threads",
-  description: "Merch for the best ocmpany in web3",
+  description: "Merch for web3 warriors",
 };
 
 export default function RootLayout({
